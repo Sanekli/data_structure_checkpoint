@@ -1,0 +1,64 @@
+ALGORITHM DotProduct
+VAR
+    n: INTEGER;
+    v1: ARRAY_OF IR[100];  
+    v2: ARRAY_OF IR[100];  
+
+PROCEDURE dot_product_proc(v1: ARRAY_OF IR, v2: ARRAY_OF IR, OUT ps: IR)
+VAR
+    i: INTEGER;
+BEGIN
+    ps := 0;
+    FOR i FROM 1 TO size_of(v1) DO
+        ps := ps + (v1[i] * v2[i]);
+    END_FOR
+END
+
+FUNCTION dot_product_func(v1: ARRAY_OF IR, v2: ARRAY_OF IR)
+VAR
+    i: INTEGER;
+    result: IR;
+BEGIN
+    result := 0;
+    FOR i FROM 1 TO size_of(v1) DO
+        result := result + (v1[i] * v2[i]);
+    END_FOR
+    RETURN result;
+END
+
+ALGORITHM CheckOrthogonality
+VAR
+    i, j: INTEGER;  
+    dotProduct: IR;  
+
+BEGIN
+        READ (n);  
+
+    FOR i FROM 1 TO n DO
+
+        FOR j FROM 1 TO size_of(v1) DO
+            READ (v1[j]);
+            READ (v2[j]);
+        END_FOR
+
+
+        dot_product_proc(v1, v2, OUT dotProduct);
+
+
+        IF dotProduct = 0 THEN
+            Write (Vectors in pair , i,  are orthogonal);
+        ELSE
+            Write (Vectors in pair , i,  are not orthognal);
+        END_IF
+
+
+        dotProduct := dot_product_func(v1, v2);
+
+
+        IF dotProduct = 0 THEN
+            Write (Vectors in pair , i,  are orthogonal (using function));
+        ELSE
+            Write (Vectors in pair , i,  are not orthogonal (using function));
+        END_IF
+    END_FOR
+END
